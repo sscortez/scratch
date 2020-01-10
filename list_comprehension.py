@@ -1,17 +1,23 @@
 
 """
-Examples of list comprehensions
+Examples of list comprehensions:
+
+1. Definitions
+2. For loop, syntax
+3. List comprehension examples:
+    a. List comprehension. Ex. 1
+    b. Dictionary comprehension. Ex. 7
+    c. Combination of both. Ex. 6
+4. Q&A
 """
 
 """
 * Iteration: Executing the same block of code over and over
-* Loop:      A programming structure that implements iteration
+* Loop:      A programming structure that implements iteration; collection-based iteration
 * For loop:  A programming structure that loops over a collection of objects (eg. list, tuple, dict)
 * Iterable:  Collection of objects
 * List:      An object that stores a collection of objects; bookended by square brackets (eg. [1]); objects are
              separated by commas
-
-Go through examples 1, 7, and 6
 """
 
 # For loop syntax:
@@ -185,7 +191,7 @@ for person in mi_gente:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Dictionary Comprehension ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 """
-dictionary = object that stores a collection of objects in key-value pairs; bookended by curly brackets (eg. {'a': 1})
+* dictionary: object that stores a collection of objects in key-value pairs; bookended by curly brackets (eg. {'a': 1})
 """
 
 # ~~~~~~~~~~~~~~~~ EXAMPLE 7: Multiply each value value by 2 ~~~~~~~~~~~~~~~~ #
@@ -205,8 +211,7 @@ print(dict_compa)
 
 
 
-# ~~~~~~~~~~~~~~~~ EXAMPLE 8: Add functions into a dictionary ~~~~~~~~~~~~~~~~ #
-empty_dictb = {}
+# ~~~~~~~~~~~~~~~~ EXAMPLE 8: Add functions into a dictionary. key: name of function, value: function ~~~~~~~~~~~~~~~~ #
 
 def func1():
     return 1
@@ -220,6 +225,7 @@ def func3():
     return 3
 
 func_list = [func1, func2, func3]
+empty_dictb = {}
 for func in func_list:
     empty_dictb[func.__name__] = func
 print(empty_dictb)
@@ -227,8 +233,8 @@ print(empty_dictb)
 dict_compb = {func.__name__: func for func in func_list}
 print(dict_compb)
 
-# empty_dictb = [<variable1>.__name__: <variable1>          Get the name and the item and add them as pairs to dict
-#                for <variable1> in <iterator>]             Get each item in the dictionary
+# empty_dictb = {<variable>.__name__: <variable>          Get the name and the item and add them as pairs to dict
+#                for <variable> in <iterator>}             Get each item in the dictionary
 
 
 
@@ -315,4 +321,10 @@ Python for loop:
     Collection-Based or Iterator-Based Loop
 List comprehension is a great tool to use because it allows you to condense multiple lines of code into one line
 while still maintaining clarity of execution
+"""
+
+"""
+Sources:
+1. For loop: https://realpython.com/python-for-loop/
+2. List comprehension: https://realpython.com/list-comprehension-python/
 """
