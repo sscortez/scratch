@@ -118,19 +118,29 @@ def compute_with_gen1(file_path):
 
         print(f'Total funding for round A is ${total_series_a}')
 
-        
-@timer
-def compute_with_gen2(file_path):
-    with open(file_path) as f:
-        # Get lines; result: generator > str
-        lines = (line for line in f)
-        # Split each line to a list; result: generator > list
-        list_lines = (s.strip().split(',') for s in lines)
-        # Get collection of raised amount
-        funding = (int(line[7])
-                   for line in list_lines
-                   if line[9] == 'a')
-        # Consume by adding using `sum()`
-        total_series_a = sum(funding)
+ 
+############################### Example 3 ###############################
+# This is an actual use case in our team's repo. We ingest an API output
+# that is one large bytes object and convert it into a pd.DataFrame object
+def output_to_df(output):
+    # Converts bytes object to string
+    if isinstance(output, bytes):
+        output = output.decode('utf-8')
 
-        print(f'Total funding for round A is ${total_series_a}')
+    # Split string on "\n"; split() returns a list of strings
+    lines = (output.split('\n'))
+
+    # Removes last item in the list that contains an empty string
+    data_lines = (line for line in lines if line != '')
+
+    # Split string on ","; returns a list of strings
+    items = (dl.split(',') for dl in data_lines)
+
+    # Get first item in generator object (it is a list of string objects)
+    headers = next(items)
+
+    # Format each string as lower case in the list object `headers`
+    headers = [h.lower() for h in headers]
+
+    # Create a pd.DataFrame object out of object items
+    df = pd.DataFrame(items, columns=headers)
