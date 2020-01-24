@@ -82,7 +82,7 @@ def to_df_with_gen(file_path):
 ############################### Example 3 ###############################
 # File can be found at https://realpython.com/introduction-to-python-generators/
 import os
-
+from guppy import hpy; h = hpy()  # installed guppy3 for Python3
 
 file_path = os.path.expanduser('~/Downloads/techcrunch.csv')
 
@@ -90,6 +90,7 @@ file_path = os.path.expanduser('~/Downloads/techcrunch.csv')
 @timer
 def compute_with_df(file_path):
     df = pd.read_csv(file_path)
+    print(f'Size of df: {h.iso(df)}')
     total_series_a = df.loc[df['round'] == 'a', 'raisedAmt'].sum()
     print(f'Total funding for round A is ${total_series_a}')
 
@@ -99,8 +100,10 @@ def compute_with_gen1(file_path):
     with open(file_path) as f:
         # Get lines; result: generator > str
         lines = (line for line in f)
+        print(f'Size of lines: {h.iso(lines)}')
         # Split each line to a list; result: generator > list
         list_lines = (s.strip().split(',') for s in lines)
+        print(f'Size of list_lines: {h.iso(list_lines)}')
         # Get columns; result: list
         cols = next(list_lines)
         # Zip column with every line; result: generator > dict
@@ -109,12 +112,13 @@ def compute_with_gen1(file_path):
         funding = (int(company_dict['raisedAmt'])
                    for company_dict in company_dicts
                    if company_dict['round'] == 'a')
+        print(f'Size of funding: {h.iso(funding)}')
         # Consume by adding using `sum()`
         total_series_a = sum(funding)
 
         print(f'Total funding for round A is ${total_series_a}')
 
-
+        
 @timer
 def compute_with_gen2(file_path):
     with open(file_path) as f:
